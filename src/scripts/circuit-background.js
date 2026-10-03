@@ -257,5 +257,7 @@ function run(gl, program) {
     window.addEventListener("pointerout", (event) => { if (!event.relatedTarget) hideGlow(); });
     window.addEventListener("blur", hideGlow);
     window.addEventListener("resize", requestDraw, { passive: true });
-    requestDraw();
+    // Draw the first frame synchronously so the canvas already has content when
+    // the browser captures its cross-document view-transition snapshot.
+    draw(performance.now());
 }

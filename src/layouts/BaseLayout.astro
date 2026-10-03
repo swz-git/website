@@ -1,0 +1,106 @@
+---
+import "../styles/global.css";
+import logoUrl from "../../assets/logos/rlbot.svg?url";
+import discordIcon from "../../assets/icons/discord.svg?url";
+import twitterIcon from "../../assets/icons/twitter.svg?url";
+import youtubeIcon from "../../assets/icons/youtube.svg?url";
+import twitchIcon from "../../assets/icons/twitch.svg?url";
+import redditIcon from "../../assets/icons/reddit.svg?url";
+import {
+    defaultDescription,
+    defaultTitle,
+    discordUrl,
+    githubUrl,
+    wikiUrl,
+} from "../consts";
+
+interface Props {
+    title?: string;
+    description?: string;
+}
+
+const { title = defaultTitle, description = defaultDescription } = Astro.props;
+
+const nav = [
+    { name: "Download", href: "/download" },
+    { name: "Wiki", href: wikiUrl },
+    { name: "Discord", href: discordUrl },
+    { name: "GitHub", href: githubUrl },
+];
+
+const socials = [
+    { name: "Discord", url: discordUrl, icon: discordIcon },
+    {
+        name: "Twitter",
+        url: "https://twitter.com/RLBotOfficial",
+        icon: twitterIcon,
+    },
+    {
+        name: "YouTube",
+        url: "https://www.youtube.com/c/RLBotOfficial",
+        icon: youtubeIcon,
+    },
+    {
+        name: "Twitch",
+        url: "https://www.twitch.tv/rlbotofficial",
+        icon: twitchIcon,
+    },
+    {
+        name: "Reddit",
+        url: "https://www.reddit.com/r/RocketLeagueBots/",
+        icon: redditIcon,
+    },
+];
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="icon" type="image/svg+xml" href={logoUrl} />
+    </head>
+
+    <body>
+        <canvas class="circuit-background" aria-hidden="true"></canvas>
+        <header class="site-header">
+            <a class="brand shadow" href="/">
+                <img src={logoUrl} alt="" width="42" height="42" />
+                <span>RLBot</span>
+            </a>
+            <nav class="site-nav shadow" aria-label="Primary">
+                {nav.map((item) => <a href={item.href}>{item.name}</a>)}
+            </nav>
+        </header>
+
+        <main>
+            <slot />
+        </main>
+
+        <footer class="site-footer">
+            <div class="social-links">
+                {socials.map((social) => (
+                    <a
+                        href={social.url}
+                        title={social.name}
+                        aria-label={social.name}
+                    >
+                        <img
+                            src={social.icon}
+                            alt={social.name}
+                            width="32"
+                            height="32"
+                        />
+                    </a>
+                ))}
+            </div>
+            <p>
+                RLBot is a community of bot makers and a framework for offline
+                bots
+            </p>
+        </footer>
+        <script src="../scripts/circuit-background.js"></script>
+    </body>
+</html>

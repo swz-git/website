@@ -1,3 +1,17 @@
+/* Prefer an installed copy of Inter; only download the webfont if it is not
+   available locally. No JavaScript required. Do not preload this file, or the
+   download would happen even when Inter is already installed. */
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src:
+        local("Inter"),
+        local("Inter Variable"),
+        url("../../assets/fonts/Inter.woff2") format("woff2");
+}
+
 :root {
     --bg: #010201;
     --fg: #ffffff;
@@ -49,6 +63,60 @@ body {
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     isolation: isolate;
+}
+
+/* View transitions (native cross-document, no client-side router) */
+
+@view-transition {
+    navigation: auto;
+}
+
+/* Create a custom animation */
+@keyframes move-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes move-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Apply the custom animation to the old and new page states */
+::view-transition-old(root) {
+    animation: 0.4s ease both move-out;
+}
+
+::view-transition-new(root) {
+    animation: 0.4s ease both move-in;
+}
+
+/* Give elements shared across pages their own transition group so they morph
+   in place instead of cross-fading with the rest of the page. */
+.site-header {
+    view-transition-name: site-header;
+}
+
+.site-footer {
+    view-transition-name: site-footer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
 }
 
 .circuit-background {
@@ -143,6 +211,16 @@ h1 {
     margin-left: auto;
 }
 
+p a {
+    color: lightblue;
+    text-decoration: underline;
+    text-underline-offset: .15rem;
+}
+
+a pre {
+    display: inline;
+}
+
 a.button {
     display: inline-block;
     padding: 10px 26px;
@@ -187,11 +265,6 @@ a.button:hover {
 
 p {
     color: var(--fg-muted);
-}
-
-.section-lead a {
-    text-decoration: underline;
-    text-underline-offset: 2px;
 }
 
 .section-heading {
@@ -242,7 +315,7 @@ p {
     order: 1;
 }
 
-.card:hover {
+a.card:hover {
     border-color: var(--accent);
     background: rgba(116, 192, 107, 0.22);
 }
@@ -466,6 +539,134 @@ p {
 
 .social-links a:hover img {
     opacity: 1;
+}
+
+/* Download page */
+
+.download-hero {
+    width: 100%;
+    max-width: 52rem;
+}
+
+.download-hero h1 {
+    margin: 0;
+    font-size: clamp(2.75rem, 7vw, 4.5rem);
+}
+
+.os-switch {
+    width: 100%;
+}
+
+.os-toggle {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    background: rgba(16, 19, 16, 0.82);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+}
+
+.os-tab {
+    padding: 6px 22px;
+    border-radius: 999px;
+    color: var(--fg-muted);
+    font-weight: 600;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.os-tab:hover,
+.os-tab:focus-visible {
+    color: var(--fg);
+}
+
+/* Highlight the active tab, defaulting to Windows when no hash is set. */
+.os-switch:not(:has(.os-panel:target)) .os-tab[href="#windows"],
+.os-switch:has(#windows:target) .os-tab[href="#windows"],
+.os-switch:has(#linux:target) .os-tab[href="#linux"] {
+    background: var(--accent);
+    color: #0d1f0c;
+}
+
+.os-panel {
+    display: none;
+    max-width: 42rem;
+    margin-top: 24px;
+    scroll-margin-top: 2rem;
+}
+
+/* Show the targeted panel, defaulting to Windows when no hash is set. */
+.os-switch:not(:has(.os-panel:target)) #windows,
+.os-panel:target {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.download-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.download-card h3 {
+    margin: 0;
+}
+
+.version-card {
+    width: 100%;
+}
+
+.version-card.recommended {
+    border-color: rgba(116, 192, 107, 0.5);
+}
+
+.version-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.version-card p {
+    margin: 0;
+}
+
+.version-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+}
+
+.pill {
+    padding: 2px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--accent);
+    background: rgba(116, 192, 107, 0.22);
+    color: var(--accent-hover);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.legacy-note {
+    margin: 0;
+}
+
+a.button.secondary {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--fg);
+}
+
+a.button.secondary:hover {
+    background: rgba(255, 255, 255, 0.18);
 }
 
 /* Responsive */

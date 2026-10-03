@@ -4,6 +4,12 @@ import svelte from "@astrojs/svelte";
 
 export default defineConfig({
     site: "https://rlbot.org",
-    compressHTML: true,
+    vite: {
+        build: {
+            cssMinify: "lightningcss",
+            minify: "oxc",
+            sourcemap: false,
+        },
+    },
     integrations: [svelte()],
 });

@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+    discordUrl,
+    osSupportUrl,
+    v4DownloadUrl,
+    v5DownloadUrl,
+    v5OverviewUrl,
+} from "../consts";
+---
+
+<BaseLayout
+    title="RLBot | Download"
+    description="Download RLBot v5 for Windows, or use it on Linux with Rocket League under Proton or the Epic Games Store."
+>
+    <section class="download-hero">
+        <h1>Download RLBot</h1>
+    </section>
+
+    <section class="section os-switch" aria-label="Download options">
+        <div class="os-toggle">
+            <a class="os-tab" href="#windows">Windows</a>
+            <a class="os-tab" href="#linux">Linux</a>
+        </div>
+
+        <div class="os-panel" id="windows">
+            <div class="card download-card version-card recommended">
+                <div class="version-head">
+                    <h3>RLBot v5</h3>
+                    <span class="pill">Latest</span>
+                </div>
+                <p>
+                    The latest version of RLBot. A rewrite of RLBot v4 with many
+                    improvements including much better performance. <a
+                    href={v5OverviewUrl}>See v4 vs v5
+                    </a>
+                </p>
+                <div class="version-actions">
+                    <a class="button" href={v5DownloadUrl}>
+                        Download
+                    </a>
+
+                </div>
+            </div>
+            <div class="card download-card version-card">
+                <div class="version-head">
+                    <h3>RLBot v4</h3>
+                    <span class="pill">Legacy</span>
+                </div>
+                <p>
+                    The last generation of RLBot. Slower and not actively
+                    maintained anymore. This version still has some features
+                    that v5 haven't yet implemented, such as story mode. RLBot
+                    v4 also has more legacy bots compared to v5.
+                </p>
+                <div class="version-actions">
+                    <a class="button" href={v4DownloadUrl}>
+                        Download
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="os-panel" id="linux">
+            <div class="card download-card version-card recommended">
+                <div class="version-head">
+                    <h3>RLBot v5</h3>
+                    <span class="pill">Latest</span>
+                </div>
+                <p>
+                    The latest version of RLBot. A rewrite of RLBot v4 with many
+                    improvements including much better performance. This version
+                    also brings way better linux support.
+                </p>
+                <div class="version-actions">
+                    <a class="button" href={v4DownloadUrl}>
+                        Download <pre>RLBotServer</pre>
+                    </a>
+                    <a class="button" href={v4DownloadUrl}>
+                        Download <pre>rlbotgui</pre>
+                    </a>
+                </div>
+                <p style="color: sandybrown">
+                    Note that we are still working on a {}
+                    <a href="https://github.com/VirxEC/rlbot-flatpak">proper {}
+                    launcher package</a> for linux. Until its done, you can use
+                    RLBot v5 by launching the server and gui binaries yourself.
+                    Feel free to <a href={discordUrl}>ask in the  Discord</a> {}
+                    if you get stuck.
+                </p>
+            </div>
+            <p class="legacy-note">
+                RLBot v4 only supports the old native Steam build on linux, not Proton
+                or Epic. Using v4 on linux is strongly advised against.
+            </p>
+        </div>
+    </section>
+</BaseLayout>
