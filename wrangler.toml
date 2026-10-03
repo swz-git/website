@@ -1,5 +1,6 @@
 "$schema" = "./node_modules/wrangler/config-schema.json"
 name = "rlbotwebsite"
+compatibility_date = "2026-10-01"
 
 [assets]
 directory = "./dist"
