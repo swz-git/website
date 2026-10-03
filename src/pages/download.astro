@@ -97,3 +97,108 @@ import {
         </div>
     </section>
 </BaseLayout>
+
+<style>
+    .download-hero {
+        max-width: 52rem;
+    }
+
+    .download-hero h1 {
+        margin: 0;
+        font-size: clamp(2.75rem, 7vw, 4.5rem);
+    }
+
+    .os-toggle {
+        display: inline-flex;
+        gap: 4px;
+        padding: 4px;
+        border: 1px solid var(--surface-border);
+        border-radius: 999px;
+        background: var(--surface);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
+
+    .os-tab {
+        padding: 6px 22px;
+        border-radius: 999px;
+        color: var(--fg-muted);
+        font-weight: 600;
+        transition:
+            background-color 0.15s ease,
+            color 0.15s ease;
+    }
+
+    .os-tab:hover,
+    .os-tab:focus-visible {
+        color: var(--fg);
+    }
+
+    /* Highlight the active tab, defaulting to Windows when no hash is set. */
+    .os-switch:not(:has(.os-panel:target)) .os-tab[href="#windows"],
+    .os-switch:has(#windows:target) .os-tab[href="#windows"],
+    .os-switch:has(#linux:target) .os-tab[href="#linux"] {
+        background: var(--accent);
+        color: var(--accent-contrast);
+    }
+
+    .os-panel {
+        display: none;
+        max-width: 42rem;
+        margin-top: 24px;
+        scroll-margin-top: 2rem;
+    }
+
+    /* Show the targeted panel, defaulting to Windows when no hash is set. */
+    .os-switch:not(:has(.os-panel:target)) #windows,
+    .os-panel:target {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .download-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .download-card h3 {
+        margin: 0;
+    }
+
+    .version-card.recommended {
+        border-color: rgba(116, 192, 107, 0.5);
+    }
+
+    .version-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .version-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .pill {
+        padding: 2px 10px;
+        border: 1px solid var(--accent);
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-hover);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .legacy-note {
+        margin: 0;
+    }
+</style>
