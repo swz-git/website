@@ -1,0 +1,48 @@
+---
+import UpcomingEventsList from "./UpcomingEventsList.svelte";
+
+interface Props {
+    /** Public Google Calendar ID. Defaults to the RLBot community calendar. */
+    calendarId?: string;
+    /** Maximum number of events to request from the Calendar API. */
+    maxResults?: number;
+}
+
+const { calendarId = "rlbotofficial@gmail.com", maxResults = 12 } = Astro.props;
+const subscribeUrl = `https://calendar.google.com/calendar/r?cid=${calendarId}`;
+
+// Public key already shipped on rlbot.org. It can be overridden with
+// PUBLIC_GOOGLE_CALENDAR_API_KEY at build time.
+const apiKey =
+    import.meta.env.PUBLIC_GOOGLE_CALENDAR_API_KEY ||
+    "AIzaSyBQ40UqlMPexzWxTNd7EYtTrkoFF_DqpqM";
+---
+
+<section class="section" aria-labelledby="events-heading">
+    <div class="section-heading">
+        <h2 id="events-heading" class="shadow">Upcoming Events</h2>
+        <a class="secondary-link shadow" href={subscribeUrl}>Subscribe</a>
+    </div>
+
+    <UpcomingEventsList
+        calendarId={calendarId}
+        maxResults={maxResults}
+        subscribeUrl={subscribeUrl}
+        apiKey={apiKey}
+        client:visible={{ rootMargin: "200px 0px" }}
+    />
+
+    <noscript>
+        <style is:inline>
+            [data-events-list],
+            [data-events-status] {
+                display: none;
+            }
+        </style>
+        <p class="events-warning shadow">
+            JavaScript is disabled, so upcoming events can't be loaded here.
+            <a href={subscribeUrl}>View the calendar directly</a> or subscribe
+            to stay up to date.
+        </p>
+    </noscript>
+</section>

@@ -1,0 +1,243 @@
+---
+import "../styles/global.css";
+import UpcomingEvents from "../components/UpcomingEvents.astro";
+import logoUrl from "../../assets/logos/rlbot.svg?url";
+
+import scratchIcon from "../../assets/icons/scratch.svg?url";
+import pythonIcon from "../../assets/icons/python.svg?url";
+import javaIcon from "../../assets/icons/java.svg?url";
+import csharpIcon from "../../assets/icons/csharp.svg?url";
+import cppIcon from "../../assets/icons/cplusplus.svg?url";
+import rustIcon from "../../assets/icons/rust.svg?url";
+import javascriptIcon from "../../assets/icons/javascript.svg?url";
+import goIcon from "../../assets/icons/go.svg?url";
+import rlgymIcon from "../../assets/icons/rlgym.svg?url";
+import discordIcon from "../../assets/icons/discord.svg?url";
+import twitterIcon from "../../assets/icons/twitter.svg?url";
+import youtubeIcon from "../../assets/icons/youtube.svg?url";
+import twitchIcon from "../../assets/icons/twitch.svg?url";
+import redditIcon from "../../assets/icons/reddit.svg?url";
+
+const heroVideoUrl = "https://r2generic.swz.works/rlbc24highlights_trimmed.mp4";
+const downloadUrl =
+    "https://github.com/RLBot/launcher/releases/download/installer/rlbot-v5-installer.msi";
+const osSupportUrl =
+    "https://wiki.rlbot.org/v5/framework/operating-system-support/";
+const wikiUrl = "https://wiki.rlbot.org/";
+const discordUrl = "https://discord.gg/zbaAKPt";
+const githubUrl = "https://github.com/RLBot";
+
+const languages = [
+    {
+        name: "Scratch",
+        phrase: "Program your first bot using Scratch!",
+        url: "https://github.com/swz-git/scratch-example",
+        icon: scratchIcon,
+        experimental: true,
+    },
+    {
+        name: "Python",
+        phrase: "Write a more advanced bot in Python!",
+        url: "https://github.com/RLBot/python-example",
+        icon: pythonIcon,
+    },
+    {
+        name: "Java",
+        phrase: "Build an <em>enterprise</em> bot in Java!",
+        url: "https://github.com/RLBot/java-interface",
+        icon: javaIcon,
+    },
+    {
+        name: "C#",
+        phrase: "Create a <em>professional</em> bot in C# (or any other .NET language)!",
+        url: "https://github.com/RLBot/csharp-example",
+        icon: csharpIcon,
+    },
+    {
+        name: "C++",
+        phrase: "Create an <em>incredible</em> bot in C++!",
+        url: "https://github.com/RLBot/cpp-interface/tree/master/examples/ATBA",
+        icon: cppIcon,
+    },
+    {
+        name: "Rust",
+        phrase: "Create a <em>blazingly fast</em> bot in Rust!",
+        url: "https://github.com/RLBot/rust-interface/tree/master/rlbot/examples/atba_agent",
+        icon: rustIcon,
+    },
+    {
+        name: "JavaScript",
+        phrase: "Make a supersonic <em>V8-powered</em> bot with JavaScript!",
+        url: "https://github.com/RLBot/javascript-interface",
+        icon: javascriptIcon,
+        experimental: true,
+    },
+    {
+        name: "Go",
+        phrase: "Make bot <em>go</em> fast with Go",
+        url: "https://github.com/RLBot/go-interface/tree/master/examples/atba",
+        icon: goIcon,
+    },
+    {
+        name: "RLGym",
+        phrase: "Make a <em>sentient</em> Machine Learning bot with RLGym!",
+        url: "https://github.com/VirxEC/Elementv5",
+        icon: rlgymIcon,
+    },
+];
+
+const socials = [
+    { name: "Discord", url: discordUrl, icon: discordIcon },
+    {
+        name: "Twitter",
+        url: "https://twitter.com/RLBotOfficial",
+        icon: twitterIcon,
+    },
+    {
+        name: "YouTube",
+        url: "https://www.youtube.com/c/RLBotOfficial",
+        icon: youtubeIcon,
+    },
+    {
+        name: "Twitch",
+        url: "https://www.twitch.tv/rlbotofficial",
+        icon: twitchIcon,
+    },
+    {
+        name: "Reddit",
+        url: "https://www.reddit.com/r/RocketLeagueBots/",
+        icon: redditIcon,
+    },
+];
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>RLBot · Offline Rocket League Bot Framework and Community</title>
+        <meta
+            name="description"
+            content="RLBot enables custom offline bots in Rocket League. Play against community bots using the RLBot GUI, develop your own bots using the RLBot framework or join our discord to chat about RLBot."
+        />
+        <link rel="icon" type="image/svg+xml" href={logoUrl} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    </head>
+
+    <body>
+        <canvas class="circuit-background" aria-hidden="true"></canvas>
+        <header class="site-header">
+            <a class="brand shadow" href="/#">
+                <img src={logoUrl} alt="" width="42" height="42" />
+                <span>RLBot</span>
+            </a>
+            <nav class="site-nav shadow" aria-label="Primary">
+                <a href={wikiUrl}>Wiki</a>
+                <a href={discordUrl}>Discord</a>
+                <a href={githubUrl}>GitHub</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-text shadow">
+                    <h1>Offline Rocket League Bot Framework and Community</h1>
+                    <p>
+                        RLBot enables custom offline bots in Rocket League. Play
+                        against community bots using the RLBot GUI, develop your
+                        own bots using the RLBot framework or join our{" "}
+                        <a href={discordUrl}>discord</a> to chat about RLBot.
+                    </p>
+
+                    <div class="cta">
+                        <a class="button" href={downloadUrl}>
+                            Download for Windows
+                        </a>
+                        <a class="secondary-link shadow" href={osSupportUrl}>
+                            or see our OS support
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-media">
+                    <video
+                        src={heroVideoUrl}
+                        style="aspect-ratio: 16 / 9;"
+                        muted
+                        autoplay
+                        controls
+                        loop
+                    />
+                </div>
+            </section>
+
+            <section class="section" aria-labelledby="languages-heading">
+                <h2 id="languages-heading" class="shadow">
+                    Supported Languages
+                </h2>
+                <p class="section-lead shadow">
+                    Ready to get started? Read more on our{" "}
+                    <a href={wikiUrl}>wiki</a> or pick your favourite language
+                    below!
+                </p>
+                <div class="languages-grid">
+                    {languages.map((language) => (
+                        <a
+                            class:list={[
+                                "card",
+                                { experimental: language.experimental },
+                            ]}
+                            href={language.url}
+                            rel="noopener"
+                        >
+                            <img
+                                src={language.icon}
+                                alt=""
+                                width="56"
+                                height="56"
+                                loading="lazy"
+                            />
+                            <div>
+                                <h3>
+                                    {language.name}
+                                    {language.experimental && (
+                                        <span class="badge">Experimental</span>
+                                    )}
+                                </h3>
+                                <p set:html={language.phrase} />
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            </section>
+
+            <UpcomingEvents />
+        </main>
+
+        <footer class="site-footer">
+            <div class="social-links">
+                {socials.map((social) => (
+                    <a
+                        href={social.url}
+                        title={social.name}
+                        aria-label={social.name}
+                    >
+                        <img
+                            src={social.icon}
+                            alt={social.name}
+                            width="32"
+                            height="32"
+                        />
+                    </a>
+                ))}
+            </div>
+            <p>
+                RLBot is a community of bot makers and a framework for offline
+                bots
+            </p>
+        </footer>
+        <script src="../scripts/circuit-background.js"></script>
+    </body>
+</html>
