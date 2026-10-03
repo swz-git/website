@@ -12,6 +12,11 @@ export const defaultDescription =
 export const v5DownloadUrl =
     "https://github.com/RLBot/launcher/releases/download/installer/rlbot-v5-installer.msi";
 
+export const v5RLBotServerLinuxUrl =
+    "https://github.com/RLBot/core/releases/latest/download/RLBotServer";
+export const v5RLBotGuiLinuxUrl =
+    "https://github.com/RLBot/gui/releases/latest/download/rlbotgui";
+
 /** RLBot v4 legacy RLBotGUI installer. */
 export const v4DownloadUrl =
     "https://github.com/RLBot/RLBotGUI/releases/download/v1.0/RLBotGUI.msi";
