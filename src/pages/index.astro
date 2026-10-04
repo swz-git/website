@@ -87,7 +87,13 @@ const languages = [
             </p>
 
             <div class="cta">
-                <a class="button" href="/download">Download RLBot</a>
+                <a class="button" id="dlbtn" href="/download/">Download RLBot</a>
+                <script>
+                if (navigator.userAgent.indexOf("Linux") !== -1) {
+                    // @ts-ignore trust me bro this works
+                    document.getElementById("dlbtn").href = "/download/#linux";
+                }
+                </script>
                 <a class="secondary-link shadow" href={osSupportUrl}>
                     or see our OS support
                 </a>
