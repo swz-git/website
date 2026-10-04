@@ -69,9 +69,19 @@ const socials = [
                 <img src={logoUrl} alt="" width="42" height="42" />
                 <span>RLBot</span>
             </a>
-            <nav class="site-nav shadow" aria-label="Primary">
+            <nav class="site-nav desktop-nav shadow" aria-label="Primary">
                 {nav.map((item) => <a href={item.href}>{item.name}</a>)}
             </nav>
+            <details class="mobile-nav">
+                <summary class="nav-toggle" aria-label="Navigation">
+                    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 6h18M3 12h18M3 18h18" />
+                    </svg>
+                </summary>
+                <nav class="site-nav shadow" aria-label="Primary">
+                    {nav.map((item) => <a href={item.href}>{item.name}</a>)}
+                </nav>
+            </details>
         </header>
 
         <main>
@@ -343,18 +353,23 @@ const socials = [
     /* Shared across pages, so give the header and footer their own transition
        group and let them morph in place instead of cross-fading with the page. */
     .site-header {
+        container-type: inline-size;
+        position: relative;
+        z-index: 1;
         view-transition-name: site-header;
         width: 100%;
         max-width: var(--max-width);
         margin: 0 auto;
         padding: 28px 24px 0;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
     }
 
     .brand {
+        flex-shrink: 0;
         display: inline-flex;
         align-items: center;
         gap: 14px;
@@ -370,9 +385,86 @@ const socials = [
 
     .site-nav {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         gap: 28px;
         font-size: 1.05rem;
+    }
+
+    .site-nav a {
+        width: max-content;
+        flex-shrink: 0;
+    }
+
+    .mobile-nav {
+        display: none;
+        flex-shrink: 0;
+    }
+
+    .nav-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 0.5rem;
+        background: transparent;
+        color: var(--fg);
+        cursor: pointer;
+        list-style: none;
+    }
+
+    .nav-toggle::-webkit-details-marker {
+        display: none;
+    }
+
+    .nav-toggle:hover {
+        color: var(--accent-hover);
+    }
+
+    .nav-toggle:focus-visible,
+    .site-nav a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+    }
+
+    .nav-toggle svg {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+    }
+
+    .mobile-nav .site-nav {
+        position: absolute;
+        top: calc(100% + 12px);
+        right: 24px;
+        flex-direction: column;
+        align-items: stretch;
+        row-gap: 0;
+        padding: 8px;
+        border: 1px solid var(--surface-border);
+        border-radius: 12px;
+        background: var(--bg);
+    }
+
+    .mobile-nav .site-nav a {
+        width: auto;
+        padding: 10px 16px;
+    }
+
+    /* Room for the brand, four links and their gaps, with a little allowance
+       for fallback fonts. Query the header's usable width, not the viewport. */
+    @container (max-width: 32rem) {
+        .desktop-nav {
+            display: none;
+        }
+
+        .mobile-nav {
+            display: block;
+        }
     }
 
     main {
