@@ -173,6 +173,11 @@ function run(gl, program) {
     function resize() {
         ratio = Math.min(window.devicePixelRatio || 1, 1.5);
         width = document.documentElement.clientWidth;
+        // The canvas is absolutely positioned, so its own box counts towards the
+        // document's scroll height. Collapse it while measuring, otherwise the
+        // height could only ever ratchet upwards and would never shrink back
+        // down when the page gets shorter.
+        canvas.style.height = "0px";
         height = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
         canvas.style.height = `${height}px`;
         const w = Math.max(1, Math.floor(width * ratio)), h = Math.max(1, Math.floor(height * ratio));
@@ -257,6 +262,13 @@ function run(gl, program) {
     window.addEventListener("pointerout", (event) => { if (!event.relatedTarget) hideGlow(); });
     window.addEventListener("blur", hideGlow);
     window.addEventListener("resize", requestDraw, { passive: true });
+    // Sections that load asynchronously (for example the events list swapping
+    // its skeletons for real content) change the page height without a window
+    // resize. The canvas is out of flow, so observing the body can't feed back
+    // into the draw loop.
+    if (typeof ResizeObserver !== "undefined") {
+        new ResizeObserver(requestDraw).observe(document.body);
+    }
     // Draw the first frame synchronously so the canvas already has content when
     // the browser captures its cross-document view-transition snapshot.
     draw(performance.now());
